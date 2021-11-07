@@ -4,12 +4,26 @@
 #include <locale.h>
 #include <stdlib.h>
 #include <stdio.h>
+#pragma comment(lib, "libmariadb")
 
 clock_t* StartTimer();
 clock_t StopTimer();
 void Stop();
 int lat[10];
 int	lon[10];
+
+int getSql();
+int trocaElementos();
+int arvore();
+int ordenacao();
+int imprimiOrdenacao();
+int newN();
+int combSort();
+int FunQuickSort();
+int swap();
+int partition();
+int quickSort();
+int printArray();
 
 int main()
 {
@@ -33,11 +47,11 @@ int main()
 		scanf_s("%d", &subescolha);
 		switch (subescolha)
 		{
-			// Seria legal se o usuário pudesse escolher entre ordenar de forma crescente ou decrescente em cada sort e cada sort mostrar uma coisa única (tem q pensar no quê)
+			// Seria legal se o usuï¿½rio pudesse escolher entre ordenar de forma crescente ou decrescente em cada sort e cada sort mostrar uma coisa ï¿½nica (tem q pensar no quï¿½)
 		case 1:
 			clock_t * temporizador1 = StartTimer();
 
-			Stop(1050); // Está interrompendo o programa por 1 segundo e 50 milissegundos
+			Stop(1050); // Estï¿½ interrompendo o programa por 1 segundo e 50 milissegundos
 
 			clock_t tempoTotal = StopTimer(temporizador1);
 
@@ -46,9 +60,9 @@ int main()
 			break;
 		case 2:
 			// HeapSort();
-			int vetor[] = { 1, 6, 7, 9, 55, 2, 10 }; // elementos não ordenados internos
-			int vet[5]; // elementos não ordenados externos
-			int elemento = sizeof(vetor) / sizeof(vetor[0]); // realizando as divisões para análises da direita e da esquerda
+			int vetor[] = { 1, 6, 7, 9, 55, 2, 10 }; // elementos nï¿½o ordenados internos
+			int vet[5]; // elementos nï¿½o ordenados externos
+			int elemento = sizeof(vetor) / sizeof(vetor[0]); // realizando as divisï¿½es para anï¿½lises da direita e da esquerda
 
 			int menu = 0;
 			int i;
@@ -57,19 +71,19 @@ int main()
 
 			do {
 				printf("\nEscolha como deseja realizar\n");
-				printf("1- Gerar valores aleatÃ³rios\n", setlocale(LC_ALL, "Portuguese")); // método externo recebido do bd
+				printf("1- Gerar valores aleatÃ³rios\n", setlocale(LC_ALL, "Portuguese")); // mï¿½todo externo recebido do bd
 				printf("2- Pegar valores definidos\n"); // mÃ©todo interno
 				printf("0- Sair\n");
-				printf("\n\nFaça a sua escolha: ", setlocale(LC_ALL, "Portuguese"));
+				printf("\n\nFaï¿½a a sua escolha: ", setlocale(LC_ALL, "Portuguese"));
 				scanf_s("%d", &menu);
 
 				switch (menu) {
 				case 0:
-					printf("\nAplicação Encerrada", setlocale(LC_ALL, "Portuguese"));
+					printf("\nAplicaï¿½ï¿½o Encerrada", setlocale(LC_ALL, "Portuguese"));
 					break;
 
 				case 1:
-					printf("\nGerando valores aleaatórios\n", setlocale(LC_ALL, "Portuguese"));
+					printf("\nGerando valores aleaatï¿½rios\n", setlocale(LC_ALL, "Portuguese"));
 
 					srand(time(NULL));
 
@@ -77,20 +91,20 @@ int main()
 						vet[i] = rand();
 					}
 
-					// apresentando a ordenação
+					// apresentando a ordenaï¿½ï¿½o
 					ordenacao(vet, elemento);
 					imprimiOrdenacao(vet, elemento);
 					break;
 
 				case 2:
-					// apresentando a ordenação
+					// apresentando a ordenaï¿½ï¿½o
 					ordenacao(vetor, elemento);
 					imprimiOrdenacao(vetor, elemento);
 					break;
 				}
 			} while (menu != 0);
 
-			Stop();
+			Stop(100);
 			break;
 		case 3:
 			int veto[] = { 84, 2, 42, 4, 5, 98, 7, -35 };
@@ -132,7 +146,7 @@ int main()
 	return 0;
 }
 
-// Usado para pausar a execução do programa por um determinado tempo em milissegundos (passado como parâmetro)
+// Usado para pausar a execuï¿½ï¿½o do programa por um determinado tempo em milissegundos (passado como parï¿½metro)
 void Stop(int duracao)
 {
 	int msec = 0;
@@ -145,7 +159,7 @@ void Stop(int duracao)
 	} while (msec < duracao);
 }
 
-// Usado para iniciar um temporizador. Retorna um número do tipo clock_t* que deve ser armazenado para o uso da função StopTimer().
+// Usado para iniciar um temporizador. Retorna um nï¿½mero do tipo clock_t* que deve ser armazenado para o uso da funï¿½ï¿½o StopTimer().
 clock_t* StartTimer()
 {
 	clock_t* tempo = malloc(sizeof(clock_t));
@@ -153,7 +167,7 @@ clock_t* StartTimer()
 	return tempo;
 }
 
-// Usado para finalizar a contagem de um temporizador. Retorna um número do tipo clock_t que pode ser usado para calcular o tempo passado em segundos e milissegundos.
+// Usado para finalizar a contagem de um temporizador. Retorna um nï¿½mero do tipo clock_t que pode ser usado para calcular o tempo passado em segundos e milissegundos.
 clock_t StopTimer(clock_t* timer)
 {
 	clock_t total = clock() - *timer;
@@ -165,7 +179,7 @@ clock_t StopTimer(clock_t* timer)
 
 int getSql()
 {
-	//  Iniciando variáveis de conexão, resultado e linha
+	//  Iniciando variï¿½veis de conexï¿½o, resultado e linha
 	MYSQL* conn;
 	MYSQL_RES* res;
 	MYSQL_ROW row;
@@ -178,7 +192,7 @@ int getSql()
 	char* user = "usuarioc";
 	char* password = "145902";
 	char* database = "dados";
-	//  Inicia conexão com banco
+	//  Inicia conexï¿½o com banco
 	conn = mysql_init(NULL);
 	mysql_real_connect(conn, server, user, password, database, 3306, NULL, 0);
 	//  Executa Query
@@ -201,12 +215,12 @@ int getSql()
 			index++;
 		}
 	}
-	//  Fecha conexão e limpa o resultado
+	//  Fecha conexï¿½o e limpa o resultado
 	//mysql_free_result(conn);
 	//mysql_close(conn);
 }
 
-//começo codigo jacque
+//comeï¿½o codigo jacque
 /* Realiza a troca dos elementos */
 int trocaElementos(int* a, int* b) {
 	// troca os elementos
@@ -215,33 +229,33 @@ int trocaElementos(int* a, int* b) {
 	*b = aux;
 }
 
-/* Criação da árvore e dividindo os lado direito e esquerdo*/
+/* Criaï¿½ï¿½o da ï¿½rvore e dividindo os lado direito e esquerdo*/
 int arvore(int vetor[], int elemento, int i) {
 	int maiorElemento = i;
 	int direita = 2 * i + 1;  // a direita sempre se realiza a soma 2 * i + 1
 	int esquerda = 2 * i + 2; // a esquerda sempre se realiza a soma 2 * i + 2
 
-	if (esquerda < elemento && vetor[esquerda] > vetor[maiorElemento]) {  // divisão para esquerda
+	if (esquerda < elemento && vetor[esquerda] > vetor[maiorElemento]) {  // divisï¿½o para esquerda
 		maiorElemento = esquerda;
 	}
-	if (direita < elemento && vetor[direita] > vetor[maiorElemento]) {  // divisão para direita
+	if (direita < elemento && vetor[direita] > vetor[maiorElemento]) {  // divisï¿½o para direita
 		maiorElemento = direita;
 	}
-	if (maiorElemento != i) {  // troca os elementos e verifica se é maior
+	if (maiorElemento != i) {  // troca os elementos e verifica se ï¿½ maior
 		trocaElementos(&vetor[i], &vetor[maiorElemento]);
 		arvore(vetor, elemento, maiorElemento);
 	}
 }
 
-/* Construção do HeapSort */
+/* Construï¿½ï¿½o do HeapSort */
 int ordenacao(int vetor[], int elemento) {
-	// cria a ordenação
+	// cria a ordenaï¿½ï¿½o
 	int contador;
-	for (contador = (elemento / 2) - 1; contador >= 0; contador--) { // realiza o decremento para ordenar de trás para frente
+	for (contador = (elemento / 2) - 1; contador >= 0; contador--) { // realiza o decremento para ordenar de trï¿½s para frente
 		arvore(vetor, elemento, contador);
 	}
 
-	// faz a ordenação para adicionar nos índices do vetor
+	// faz a ordenaï¿½ï¿½o para adicionar nos ï¿½ndices do vetor
 	for (contador = elemento - 1; contador >= 0; contador--) {
 		trocaElementos(&vetor[0], &vetor[contador]);
 		arvore(vetor, contador, 0);
@@ -280,7 +294,7 @@ int combSort(int array[], int aSize) {
 	for (;;) {
 		n = newN(n);
 		int swapped = 0;
-		// número de vezes que vai passar por tudo fazendo as troca la
+		// nï¿½mero de vezes que vai passar por tudo fazendo as troca la
 		for (i = 0; i < aSize - n; i++) {
 			verificacoesComb++;
 			int j = i + n;
@@ -302,7 +316,7 @@ int combSort(int array[], int aSize) {
 int FunQuickSort() {
 	int dados[] = { 8, 7, 2, 1, 0, 9, 6, 10, 11, 6 };
 	int n = sizeof(dados) / sizeof(dados[0]);
-	//printf("Dados não ordenados\n");
+	//printf("Dados nï¿½o ordenados\n");
 	//printArray(data, n);
 	quickSort(dados, 0, n - 1);
 	printf("Dados em ordem crescente: \n");
