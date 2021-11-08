@@ -1,10 +1,10 @@
 #define MYSQL_STATICLIB
-#include <mysql.h>
+#include "include/mysql.h"
 #include <time.h>
 #include <locale.h>
 #include <stdlib.h>
 #include <stdio.h>
-#pragma comment(lib, "libmariadb")
+#pragma comment(lib, "libmariadb.lib")
 
 clock_t* StartTimer();
 clock_t StopTimer();
