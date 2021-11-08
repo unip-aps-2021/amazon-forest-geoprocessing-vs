@@ -30,119 +30,198 @@ int main()
 	int escolha = 0;
 	int subescolha = 0;
 
-	//     system("cls");
-	printf("############## Sistema de controle do Geoprocessamento da Floresta Amazonica ##############\n\n");
-	printf("Este programa tem como objetivo utilizar as imagens geradas pelos satelites da floresta \nAmazonica ja catalogadas e ordena-las. Para isso sao utilizados tres metodos de ordenacao, \nonde cada um tem sua singularidade. Tambem e possivel comparar o desempenho dos tres \npara melhor analise.\n\n\n");
-
-	printf("Selecione o tipo de programa a ser iniciado:\n | 1 | Iniciar Ordenacao dos dados \n | 2 | Comparar os tipos de ordenacao de dados \n | 3 | Sair\n   ");
-	scanf_s("%d", &escolha);
-	
-	switch (escolha)
+	do
 	{
-	case 1:
-		getSql();
-		printf("Obtendo dados catalogados das imagens capturadas dos satelites...\n");
-		// GetData();
-		printf("Escolha o tipo de ordenacao a ser usada:\n |1| Quick Sort\n |2| Heap Sort\n |3| Comb Sort\n\n |4| Voltar para o menu\n  ");
-		scanf_s("%d", &subescolha);
-		switch (subescolha)
+		system("cls");
+		printf("############## Sistema de controle do Geoprocessamento da Floresta Amazonica ##############\n\n");
+		printf("Este programa tem como objetivo utilizar as imagens geradas pelos satelites da floresta \nAmazonica ja catalogadas e ordena-las. Para isso sao utilizados tres metodos de ordenacao, \nonde cada um tem sua singularidade. Tambem e possivel comparar o desempenho dos tres \npara melhor analise.\n\n\n");
+
+		printf("Selecione o tipo de programa a ser iniciado:\n | 1 | Iniciar Ordenacao dos dados \n | 2 | Comparar os tipos de ordenacao de dados \n | 3 | Sair\n   ");
+		scanf_s("%d", &escolha);
+		
+		switch (escolha)
 		{
-			// Seria legal se o usu�rio pudesse escolher entre ordenar de forma crescente ou decrescente em cada sort e cada sort mostrar uma coisa �nica (tem q pensar no qu�)
-		case 1:
-			clock_t * temporizador1 = StartTimer();
+			case 1:
+				printf("Obtendo dados catalogados das imagens capturadas dos satelites...\n");
+				getSql();
+				Stop(3000);
+				do
+				{
+					system("cls");
+					printf("Escolha o tipo de ordenacao a ser usada:\n |1| Quick Sort\n |2| Heap Sort\n |3| Comb Sort\n\n |4| Voltar para o menu\n  ");
+					scanf_s("%d", &subescolha);
+					
+					switch (subescolha)
+					{
+						// QUICK SORT
+						case 1:
+							system("cls");
+							int menuQuick = 0;
+								
+							do
+							{
+								printf("\t#### QUICK SORT ####\n\n");
 
-			Stop(1050); // Est� interrompendo o programa por 1 segundo e 50 milissegundos
+								printf("Escolha o que deseja realizar:\n");
+								printf(" |1| - Realizar ordenacao\n");
+								printf(" |2| - Voltar\n  ");
+								scanf_s("%d", &menuQuick);
 
-			clock_t tempoTotal = StopTimer(temporizador1);
+								switch (menuQuick)
+								{
+									case 1:
+										clock_t * timerQuick = StartTimer();
+										FunQuickSort();
+										clock_t totalQuick = StopTimer(timerQuick);
+										
+										printf("\nTempo total = %d segundos e %d milissegundos.\n\n", totalQuick / CLOCKS_PER_SEC, totalQuick % 1000);
+									break;
+									case 2:
+										printf("Encerrando sistema de ordenacao...\n");
+										Stop(1000);
+									break;
+								}
 
-			printf("Tempo total = %d segundos e %d milissegundos.\n", tempoTotal / CLOCKS_PER_SEC, tempoTotal % 1000);
-			FunQuickSort();
-			break;
-		case 2:
-			// HeapSort();
-			int vetor[] = { 1, 6, 7, 9, 55, 2, 10 }; // elementos n�o ordenados internos
-			int vet[5]; // elementos n�o ordenados externos
-			int elemento = sizeof(vetor) / sizeof(vetor[0]); // realizando as divis�es para an�lises da direita e da esquerda
+							} while (menuQuick != 2);
 
-			int menu = 0;
-			int i;
+						break;
 
-			printf("\t#### HEAP SORT - Ordenação baseada em Árvore ####\n\n", setlocale(LC_ALL, "Portuguese"));
+						// HEAP SORT
+						case 2:
+							int vetor[] = { 1, 6, 7, 9, 55, 2, 10 }; // elementos n�o ordenados internos
+							int vet[5]; // elementos n�o ordenados externos
+							int elemento = sizeof(vetor) / sizeof(vetor[0]); // realizando as divis�es para an�lises da direita e da esquerda
 
-			do {
-				printf("\nEscolha como deseja realizar\n");
-				printf("1- Gerar valores aleatórios\n", setlocale(LC_ALL, "Portuguese")); // m�todo externo recebido do bd
-				printf("2- Pegar valores definidos\n"); // método interno
-				printf("0- Sair\n");
-				printf("\n\nFa�a a sua escolha: ", setlocale(LC_ALL, "Portuguese"));
-				scanf_s("%d", &menu);
+							int menuHeap = 0;
+							int i;
 
-				switch (menu) {
-				case 0:
-					printf("\nAplica��o Encerrada", setlocale(LC_ALL, "Portuguese"));
-					break;
+							system("cls");
+							printf("\t#### HEAP SORT - Ordenação baseada em Árvore ####\n\n", setlocale(LC_ALL, "Portuguese"));
 
-				case 1:
-					printf("\nGerando valores aleaat�rios\n", setlocale(LC_ALL, "Portuguese"));
+							do {
+								printf("\nEscolha como deseja realizar\n");
+								printf(" |1| Gerar valores aleatórios\n", setlocale(LC_ALL, "Portuguese")); // m�todo externo recebido do bd
+								printf(" |2| Pegar valores definidos\n"); // método interno
+								printf(" |3| Sair\n  ");
+								scanf_s("%d", &menuHeap);
 
-					srand(time(NULL));
+								switch (menuHeap)
+								{
+									case 1:
+										printf("\nGerando valores aleaat�rios\n", setlocale(LC_ALL, "Portuguese"));
 
-					for (i = 0; i < 5; i++) {
-						vet[i] = rand();
+										srand(time(NULL));
+
+										for (i = 0; i < 5; i++) {
+											vet[i] = rand();
+										}
+
+										clock_t * timerHeap1 = StartTimer();
+
+										// apresentando a ordena��o
+										ordenacao(vet, elemento);
+										imprimiOrdenacao(vet, elemento);
+
+										clock_t totalHeap1 = StopTimer(timerHeap1);
+
+										printf("Tempo total = %d segundos e %d milissegundos.\n\n", totalHeap1 / CLOCKS_PER_SEC, totalHeap1 % 1000);
+									break;
+									case 2:
+										clock_t * timerHeap2 = StartTimer();
+
+										// apresentando a ordena��o
+										ordenacao(vetor, elemento);
+										imprimiOrdenacao(vetor, elemento);
+
+										clock_t totalHeap2 = StopTimer(timerHeap2);
+
+										printf("Tempo total = %d segundos e %d milissegundos.\n", totalHeap2 / CLOCKS_PER_SEC, totalHeap2 % 1000);
+									break;
+									case 3:
+										printf("Encerrando sistema de ordenacao...\n");
+										Stop(1000);
+									break;
+								}
+							} while (menuHeap != 3);
+
+						break;
+
+						// COMB SORT
+						case 3:
+							system("cls");
+							int menuComb = 0;
+
+							do
+							{
+								printf("\t#### COMB SORT ####\n\n");
+
+								printf("Escolha o que deseja realizar:\n");
+								printf(" |1| - Realizar ordenacao\n");
+								printf(" |2| - Voltar\n  ");
+								scanf_s("%d", &menuComb);
+
+								switch (menuComb)
+								{
+									case 1:
+										clock_t * timerComb = StartTimer();
+
+										int veto[] = { 84, 2, 42, 4, 5, 98, 7, -35 };
+										int* v = veto;
+										int s, k;
+										s = 10;
+
+										printf("baguncadinho:\n");
+										for (k = 0;k < s;k++)
+										{
+											printf("%d ", lon[k]);
+										}
+
+
+										combSort(lon, s);
+
+
+										printf("\narrumadinho:\n");        
+										for (k = 0;k < s;k++)
+										{
+											printf("%d ", (lon[k]));
+										}
+
+										clock_t totalComb = StopTimer(timerComb);
+										
+										printf("\n\nTempo total = %d segundos e %d milissegundos.\n\n", totalComb / CLOCKS_PER_SEC, totalComb % 1000);
+									break;
+									case 2:
+										printf("Encerrando sistema de ordenacao...\n");
+										Stop(1000);
+									break;
+								} 
+							} while (menuComb != 2);
+							
+						break;
+						case 4:
+							escolha = 0;
+							break;
+						break;
+						default:
+							printf("Opcao invalida...\n");
+							Stop(1000);
+						break;
 					}
-
-					// apresentando a ordena��o
-					ordenacao(vet, elemento);
-					imprimiOrdenacao(vet, elemento);
-					break;
-
-				case 2:
-					// apresentando a ordena��o
-					ordenacao(vetor, elemento);
-					imprimiOrdenacao(vetor, elemento);
-					break;
-				}
-			} while (menu != 0);
-
-			Stop(100);
+				} while (subescolha != 4);
 			break;
-		case 3:
-			int veto[] = { 84, 2, 42, 4, 5, 98, 7, -35 };
-			int* v = veto;
-			int s, k;
-			s = 10;
-			printf("\nbaguncadinho:\n");
-			for (k = 0;k < s;k++)
-			{
-				printf("%d ", lon[k]);
-			}
-			combSort(lon, s);
-			printf("\narrumadinho:\n");        
-			for (k = 0;k < s;k++)
-			{
-				printf("%d ", (lon[k]));
-			}
+			case 2:
+				printf("Obtendo dados catalogados das imagens capturadas dos satelites...\n");
+				// GetData();
+				printf("O protocolo de comparacao dos algoritmos fara a ordenacao dos dados com 3 algoritmos de ordenacao e \nmostrara alguns dados de performance que podem ser utilizados como criterio para um uso mais objetivo.\n\n");
+				printf("Tem q ve isso aí ainda\n");
+				// Compare();
 			break;
-		case 4:
-			escolha = 0;
-			subescolha = 0;
-			break;
-		default:
-			printf("Opcao invalida...");
+			case 3:
+				exit(0);
 			break;
 		}
-		break;
-	case 2:
-		printf("Obtendo dados catalogados das imagens capturadas dos satelites...\n");
-		// GetData();
-		printf("O protocolo de comparacao dos algoritmos fara a ordenacao dos dados com 3 algoritmos de ordenacao e \nmostrara alguns dados de performance que podem ser utilizados como criterio para um uso mais objetivo.\n\n");
-		printf("Tem q ve em grupo como q a gente vai fazer a comparacao (se vai ser os 3 algoritmos trabalhando ao msm tempo, se vai ser 1 de cada vez; oq q vai mostrar pro usuario, etc)\n");
-		// Compare();
-		break;
-	case 3:
-		exit(0);
-		break;
-	}
+	} while (escolha != 3);
+	
 	return 0;
 }
 
