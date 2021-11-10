@@ -11,6 +11,8 @@ clock_t StopTimer();
 void Stop();
 int lat[99713];
 int	lon[99713];
+int contadorTrocas;
+int contadorVerificações;//local
 
 int getSql();
 int trocaElementos();
@@ -56,6 +58,7 @@ int main()
 						// QUICK SORT
 						case 1:
 							system("cls");
+							contadorVerificações = 0;
 							int menuQuick = 0;
 								
 							do
@@ -70,8 +73,15 @@ int main()
 								switch (menuQuick)
 								{
 									case 1:
+										printf("LATE");
 										clock_t * timerQuick = StartTimer();
-										FunQuickSort();
+										int n = sizeof(lat) / sizeof(lat[0]);
+										quickSort(lat, 0, n - 1);
+										printf("\n\nNumero de verificacoes: %d\nNumero de trocas: %d", contadorVerificações, contadorTrocas);
+										contadorVerificações = 0;
+										contadorTrocas = 0;
+										quickSort(lon, 0, n - 1);
+										printf("\n\nNumero de verificacoes: %d\nNumero de trocas: %d", contadorVerificações, contadorTrocas);
 										clock_t totalQuick = StopTimer(timerQuick);
 										
 										printf("\nTempo total = %d segundos e %d milissegundos.\n\n", totalQuick / CLOCKS_PER_SEC, totalQuick % 1000);
@@ -88,9 +98,11 @@ int main()
 
 						// HEAP SORT
 						case 2:
+							contadorVerificações = 0;
 							int vetor[] = { 1, 6, 7, 9, 55, 2, 10 }; // elementos n�o ordenados internos
 							int vet[5]; // elementos n�o ordenados externos
 							int elemento = sizeof(vetor) / sizeof(vetor[0]); // realizando as divis�es para an�lises da direita e da esquerda
+							int tamanhoLatHeap = sizeof(lat) / sizeof(lat[0]); // realizando as divis�es para an�lises da direita e da esquerda
 
 							int menuHeap = 0;
 							int i;
@@ -130,12 +142,18 @@ int main()
 										clock_t * timerHeap2 = StartTimer();
 
 										// apresentando a ordena��o
-										ordenacao(vetor, elemento);
-										imprimiOrdenacao(vetor, elemento);
+										ordenacao(lat, tamanhoLatHeap);
+										printf("LAT: \n");
+										printf("\n\nNumero de verificacoes: %d\nNumero de trocas: %d", contadorVerificações, contadorTrocas);
+										contadorTrocas = 0;
+										contadorVerificações = 0;
+										ordenacao(lon, tamanhoLatHeap);
+										printf("\n\nLON: ");
+										printf("\n\nNumero de verificacoes: %d\nNumero de trocas: %d", contadorVerificações, contadorTrocas);
 
 										clock_t totalHeap2 = StopTimer(timerHeap2);
 
-										printf("Tempo total = %d segundos e %d milissegundos.\n", totalHeap2 / CLOCKS_PER_SEC, totalHeap2 % 1000);
+										printf("\nTempo total = %d segundos e %d milissegundos.\n", totalHeap2 / CLOCKS_PER_SEC, totalHeap2 % 1000);
 									break;
 									case 3:
 										printf("Encerrando sistema de ordenacao...\n");
@@ -309,6 +327,7 @@ int trocaElementos(int* a, int* b) {
 	int aux = *a;
 	*a = *b;
 	*b = aux;
+	contadorTrocas++;
 }
 
 /* Cria��o da �rvore e dividindo os lado direito e esquerdo*/
@@ -316,6 +335,8 @@ int arvore(int vetor[], int elemento, int i) {
 	int maiorElemento = i;
 	int direita = 2 * i + 1;  // a direita sempre se realiza a soma 2 * i + 1
 	int esquerda = 2 * i + 2; // a esquerda sempre se realiza a soma 2 * i + 2
+
+	contadorVerificações++;
 
 	if (esquerda < elemento && vetor[esquerda] > vetor[maiorElemento]) {  // divis�o para esquerda
 		maiorElemento = esquerda;
@@ -395,21 +416,6 @@ int combSort(int array[], int aSize) {
 	printf("\nta na mao patrao:\n");
 	printf("\nVerificacoes: %d\nNumero de Trocas: %d\n", verificacoesComb, trocasComb);
 }
-int FunQuickSort() {
-	int dados[] = { 8, 7, 2, 1, 0, 9, 6, 10, 11, 6 };
-	int n = sizeof(dados) / sizeof(dados[0]);
-	//printf("Dados n�o ordenados\n");
-	//printArray(data, n);
-	quickSort(dados, 0, n - 1);
-	printf("Dados em ordem crescente: \n");
-	printArray(dados, n);
-}
-
-int swap(int* a, int* b) {
-	int t = *a;
-	*a = *b;
-	*b = t;
-}
 
 int partition(int array[], int baixo, int cima) {
 
@@ -420,17 +426,18 @@ int partition(int array[], int baixo, int cima) {
 	for (int j = baixo; j < cima; j++) {
 		if (array[j] <= pivo) {
 			i++;
-			swap(&array[i], &array[j]);
+			trocaElementos(&array[i], &array[j]);
 		}
 	}
 
-	swap(&array[i + 1], &array[cima]);
+	trocaElementos(&array[i + 1], &array[cima]);
 
 	return (i + 1);
 }
 
 int quickSort(int array[], int baixo, int cima) {
 	if (baixo < cima) {
+		contadorVerificações++;
 		int pi = partition(array, baixo, cima);
 		quickSort(array, baixo, pi - 1);
 		quickSort(array, pi + 1, cima);
