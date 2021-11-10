@@ -9,8 +9,8 @@
 clock_t* StartTimer();
 clock_t StopTimer();
 void Stop();
-int lat[10];
-int	lon[10];
+int lat[99713];
+int	lon[99713];
 
 int getSql();
 int trocaElementos();
@@ -168,19 +168,22 @@ int main()
 										int veto[] = { 84, 2, 42, 4, 5, 98, 7, -35 };
 										int* v = veto;
 										int s, k;
-										s = 10;
+										s = 99713;
 
-										printf("baguncadinho:\n");
+										// printf("baguncadinho:\n");
+										// for (k = 0;k < s;k++)
+										// {
+										// 	printf("%d ", lon[k]);
+										// }
+										combSort(lat, s);
+										printf("\n\n\n\n\narrumadinho LAAAAAAAAAAAAAATITUDEEEEEEEEEEEEEEEEEEEEE:\n");        
 										for (k = 0;k < s;k++)
 										{
-											printf("%d ", lon[k]);
+											printf("%d ", (lat[k]));
 										}
 
-
 										combSort(lon, s);
-
-
-										printf("\narrumadinho:\n");        
+										printf("\n\n\n\n\n\narrumadinho LOOOOOOOOOONGITUDEEEEEEEEEEEEEEEEEEEEEE:\n");        
 										for (k = 0;k < s;k++)
 										{
 											printf("%d ", (lon[k]));
@@ -275,7 +278,7 @@ int getSql()
 	conn = mysql_init(NULL);
 	mysql_real_connect(conn, server, user, password, database, 3306, NULL, 0);
 	//  Executa Query
-	mysql_query(conn, "SELECT lat AS latitude, lon AS longitude FROM dados_geo LIMIT 10;");
+	mysql_query(conn, "SELECT lat AS latitude, lon AS longitude FROM dados_geo;");
 	//  Usa e printa resultado
 	res = mysql_use_result(conn);
 	num_fields = mysql_num_fields(res);
