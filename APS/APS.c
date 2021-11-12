@@ -77,10 +77,12 @@ int main()
 										clock_t * timerQuick = StartTimer();
 										int n = sizeof(lat) / sizeof(lat[0]);
 										quickSort(lat, 0, n - 1);
+										// printArray(lat, n);
 										printf("\n\nNumero de verificacoes: %d\nNumero de trocas: %d", contadorVerificações, contadorTrocas);
 										contadorVerificações = 0;
 										contadorTrocas = 0;
 										quickSort(lon, 0, n - 1);
+										// printArray(lon, n);
 										printf("\n\nNumero de verificacoes: %d\nNumero de trocas: %d", contadorVerificações, contadorTrocas);
 										clock_t totalQuick = StopTimer(timerQuick);
 										
@@ -143,11 +145,13 @@ int main()
 
 										// apresentando a ordena��o
 										ordenacao(lat, tamanhoLatHeap);
+										imprimiOrdenacao(lat, tamanhoLatHeap);
 										printf("LAT: \n");
 										printf("\n\nNumero de verificacoes: %d\nNumero de trocas: %d", contadorVerificações, contadorTrocas);
 										contadorTrocas = 0;
 										contadorVerificações = 0;
 										ordenacao(lon, tamanhoLatHeap);
+										imprimiOrdenacao(lon, tamanhoLatHeap);
 										printf("\n\nLON: ");
 										printf("\n\nNumero de verificacoes: %d\nNumero de trocas: %d", contadorVerificações, contadorTrocas);
 
@@ -405,8 +409,8 @@ int combSort(int array[], int aSize) {
 				autemp = array[i];
 				array[i] = array[j];
 				array[j] = autemp;
-				swapped = 1;
 				trocasComb++;
+				swapped = 1;
 			}
 		}
 		if (n == 1 && !swapped) {
@@ -443,6 +447,7 @@ int quickSort(int array[], int baixo, int cima) {
 		quickSort(array, pi + 1, cima);
 	}
 }
+
 
 int printArray(int array[], int tamanho) {
 	for (int i = 0; i < tamanho; ++i) {
