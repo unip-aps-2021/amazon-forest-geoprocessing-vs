@@ -3,7 +3,7 @@
 	"tasks": [
 		{
 			"type": "cppbuild",
-			"label": "C/C++: gcc.exe build active file",
+			"label": "C/C++: gcc.exe build active file with mariadb libs",
 			"command": "C:/Users/flavi/dev/MSYS2/mingw64/bin/gcc.exe",//colocar o caminho do executável gcc.exe da pasta do seu compilador
 			"args": [
 				"-fdiagnostics-color=always",
