@@ -1,0 +1,12 @@
+%FILES%
+usr/
+usr/bin/
+usr/bin/btyacc.exe
+usr/share/
+usr/share/licenses/
+usr/share/licenses/btyacc/
+usr/share/licenses/btyacc/copyright
+usr/share/man/
+usr/share/man/man1/
+usr/share/man/man1/btyacc.1.gz
+

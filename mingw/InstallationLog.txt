@@ -1,0 +1,101 @@
+************************************* Invoked: dom nov 14 19:32:59 2021
+[0] Arguments: C:\Users\flavi\Downloads\msys2-x86_64-20210725.exe
+[11] Operations sanity check succeeded.
+[11] Language: en-US
+[625] Loaded control script ":/metadata/installer-config/control_js.js"
+[625] Using control script: ":/metadata/installer-config/control_js.js"
+[3999] Preparing meta information download...
+[4016] Warning: Empty filename passed to function
+[4016] Warning: Empty filename passed to function
+[4016] Warning: Empty filename passed to function
+[4025] Warning: Empty filename passed to function
+[4025] Warning: Empty filename passed to function
+[4025] Warning: Empty filename passed to function
+[4030] Warning: Empty filename passed to function
+[4030] Warning: Empty filename passed to function
+[4030] Warning: Empty filename passed to function
+[4032] Warning: Empty filename passed to function
+[4032] Warning: Empty filename passed to function
+[4032] Warning: Empty filename passed to function
+[4036] Warning: Empty filename passed to function
+[4036] Warning: Empty filename passed to function
+[4036] Warning: Empty filename passed to function
+[4215] Warning: Empty filename passed to function
+[4216] Warning: Empty filename passed to function
+[4216] Warning: Empty filename passed to function
+[4217] Warning: Empty filename passed to function
+[4217] Warning: Empty filename passed to function
+[4217] Warning: Empty filename passed to function
+[14695] OverwriteTargetDirectory : Warning : You have selected an existing, non-empty directory for installation.
+Note that it will be completely wiped on uninstallation of this application.
+It is not advisable to install into this directory as installation might fail.
+Do you want to continue? Yes|No
+[39241] backup  operation: Mkdir
+[39241] 	- arguments: C:/Users/flavi/dev/_UNIP/c/amazon-forest-geoprocessing-vs/mingw
+[39241] Done
+[39242] perform  operation: Mkdir
+[39242] 	- arguments: C:/Users/flavi/dev/_UNIP/c/amazon-forest-geoprocessing-vs/mingw
+[39242] Done
+[39242] Preparing the installation...
+[39243] Install size: 2 components
+[39272] Installing component MSYS2 64bit base
+[39273] backup com.msys2.root.base operation: Extract
+[39273] 	- arguments: installer://com.msys2.root.base/20210725msys64.7z, C:\Users\flavi\dev\_UNIP\c\amazon-forest-geoprocessing-vs\mingw
+[39273] Done
+[39273] perform com.msys2.root.base operation: Extract
+[39273] 	- arguments: installer://com.msys2.root.base/20210725msys64.7z, C:\Users\flavi\dev\_UNIP\c\amazon-forest-geoprocessing-vs\mingw
+[75098] Done
+[75103] backup com.msys2.root.base operation: CreateShortcut
+[75103] 	- arguments: C:\Users\flavi\dev\_UNIP\c\amazon-forest-geoprocessing-vs\mingw\msys2_shell.cmd, C:\Users\flavi\AppData\Roaming\Microsoft\Windows\Start Menu\Programs\/MSYS2 MinGW 32-bit.lnk, -mingw32, iconPath=C:\Users\flavi\dev\_UNIP\c\amazon-forest-geoprocessing-vs\mingw/mingw32.exe
+[75104] Done
+[75104] perform com.msys2.root.base operation: CreateShortcut
+[75104] 	- arguments: C:\Users\flavi\dev\_UNIP\c\amazon-forest-geoprocessing-vs\mingw\msys2_shell.cmd, C:\Users\flavi\AppData\Roaming\Microsoft\Windows\Start Menu\Programs\/MSYS2 MinGW 32-bit.lnk, -mingw32
+[75135] Done
+[75136] backup com.msys2.root.base operation: CreateShortcut
+[75136] 	- arguments: C:\Users\flavi\dev\_UNIP\c\amazon-forest-geoprocessing-vs\mingw\msys2_shell.cmd, C:\Users\flavi\AppData\Roaming\Microsoft\Windows\Start Menu\Programs\/MSYS2 MinGW 64-bit.lnk, -mingw64, iconPath=C:\Users\flavi\dev\_UNIP\c\amazon-forest-geoprocessing-vs\mingw/mingw64.exe
+[75136] Done
+[75136] perform com.msys2.root.base operation: CreateShortcut
+[75136] 	- arguments: C:\Users\flavi\dev\_UNIP\c\amazon-forest-geoprocessing-vs\mingw\msys2_shell.cmd, C:\Users\flavi\AppData\Roaming\Microsoft\Windows\Start Menu\Programs\/MSYS2 MinGW 64-bit.lnk, -mingw64
+[75165] Done
+[75165] backup com.msys2.root.base operation: CreateShortcut
+[75165] 	- arguments: C:\Users\flavi\dev\_UNIP\c\amazon-forest-geoprocessing-vs\mingw\msys2_shell.cmd, C:\Users\flavi\AppData\Roaming\Microsoft\Windows\Start Menu\Programs\/MSYS2 MinGW UCRT 64-bit.lnk, -ucrt64, iconPath=C:\Users\flavi\dev\_UNIP\c\amazon-forest-geoprocessing-vs\mingw/ucrt64.exe
+[75165] Done
+[75165] perform com.msys2.root.base operation: CreateShortcut
+[75166] 	- arguments: C:\Users\flavi\dev\_UNIP\c\amazon-forest-geoprocessing-vs\mingw\msys2_shell.cmd, C:\Users\flavi\AppData\Roaming\Microsoft\Windows\Start Menu\Programs\/MSYS2 MinGW UCRT 64-bit.lnk, -ucrt64
+[75183] Done
+[75184] backup com.msys2.root.base operation: CreateShortcut
+[75184] 	- arguments: C:\Users\flavi\dev\_UNIP\c\amazon-forest-geoprocessing-vs\mingw\msys2_shell.cmd, C:\Users\flavi\AppData\Roaming\Microsoft\Windows\Start Menu\Programs\/MSYS2 MSYS.lnk, -msys, iconPath=C:\Users\flavi\dev\_UNIP\c\amazon-forest-geoprocessing-vs\mingw/msys2.exe
+[75184] Done
+[75184] perform com.msys2.root.base operation: CreateShortcut
+[75185] 	- arguments: C:\Users\flavi\dev\_UNIP\c\amazon-forest-geoprocessing-vs\mingw\msys2_shell.cmd, C:\Users\flavi\AppData\Roaming\Microsoft\Windows\Start Menu\Programs\/MSYS2 MSYS.lnk, -msys
+[75235] Done
+[75235] backup com.msys2.root.base operation: Execute
+[75235] 	- arguments: C:\Users\flavi\dev\_UNIP\c\amazon-forest-geoprocessing-vs\mingw\usr\bin\bash.exe, --login, -c, exit
+[75235] Done
+[75236] perform com.msys2.root.base operation: Execute
+[75236] 	- arguments: C:\Users\flavi\dev\_UNIP\c\amazon-forest-geoprocessing-vs\mingw\usr\bin\bash.exe, --login, -c, exit
+[75307] C:\\Users\\flavi\\dev\\_UNIP\\c\\amazon-forest-geoprocessing-vs\\mingw\\usr\\bin\\bash.exe" started, arguments: "--login -c exit
+[78315] Copying skeleton files.\nThese files are for the users to personalise their msys2 experience.\n\nThey will never be overwritten nor automatically updated.\n\n
+[79625] './.bashrc' -> '/home/flavi/.bashrc'\n'./.bash_logout' -> '/home/flavi/.bash_logout'\n
+[79645] './.bash_profile' -> '/home/flavi/.bash_profile'\n
+[79723] './.inputrc' -> '/home/flavi/.inputrc'\n
+[79802] './.profile' -> '/home/flavi/.profile'\n
+[80117] 'C:\\Windows\\system32\\drivers\\etc\\hosts' -> '/etc/hosts'\n
+[80442] 'C:\\Windows\\system32\\drivers\\etc\\protocol' -> '/etc/protocols'\n
+[80474] 'C:\\Windows\\system32\\drivers\\etc\\services' -> '/etc/services'\n
+[80788] 'C:\\Windows\\system32\\drivers\\etc\\networks' -> '/etc/networks'\n
+[84922] ==> Generating pacman master key. This may take some time.\n
+[87588] ==> Updating trust database...\n
+[88225] ==> Appending keys from msys2.gpg...\n
+[88379] ==> Locally signing trusted keys in keyring...\n
+[93460]   -> Locally signed 6 keys.\n==> Importing owner trust values...\n==> Disabling revoked keys in keyring...\n
+[93965]   -> Disabled 1 keys.\n
+[94036] ==> Updating trust database...\n
+[122207] \x1B[H\x1B[2J\x1B[3J\n\n###################################################################\n#                                                                 #\n#                                                                 #\n#                   C   A   U   T   I   O   N                     #\n#                                                                 #\n#                  This is first start of MSYS2.                  #\n#       You MUST restart shell to apply necessary actions.        #\n#                                                                 #\n#                                                                 #\n###################################################################\n\n\n\x1B[H\x1B[2J\x1B[3J
+[122207] Done
+[122217] Writing maintenance tool: "C:\\Users\\flavi\\dev\\_UNIP\\c\\amazon-forest-geoprocessing-vs\\mingw/uninstall.exe.new"
+[122217] Writing maintenance tool.
+[122577] Wrote permissions for maintenance tool.
+[122977] Maintenance tool restart: false.
+[122980] Installation finished!
+[134775] starting "C:\\Users\\flavi\\dev\\_UNIP\\c\\amazon-forest-geoprocessing-vs\\mingw/msys2_shell.cmd" ()

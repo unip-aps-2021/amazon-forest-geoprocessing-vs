@@ -1,0 +1,17 @@
+%FILES%
+usr/
+usr/bin/
+usr/bin/reflex++.exe
+usr/bin/reflex.exe
+usr/include/
+usr/include/reFlexLexer.h
+usr/lib/
+usr/lib/librefl.a
+usr/share/
+usr/share/licenses/
+usr/share/licenses/reflex/
+usr/share/licenses/reflex/copyright
+usr/share/man/
+usr/share/man/man1/
+usr/share/man/man1/reflex.1.gz
+

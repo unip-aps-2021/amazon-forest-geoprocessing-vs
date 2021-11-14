@@ -52,6 +52,7 @@ int main()
 				do
 				{
 					system("cls");
+					int arr[11] = {1, -57, 2, -64, 5, -74, 7, -10, 8, -39, 25};
 					wprintf(L"Escolha o tipo de ordenacao a ser usada:\n |1| Quick Sort\n |2| Heap Sort\n |3| Comb Sort\n\n |4| Voltar para o menu\n  ");
 					scanf_s("%d", &subescolha);
 					
@@ -68,14 +69,14 @@ int main()
 								wprintf(L"\t#### QUICK SORT ####\n\n");
 
 								wprintf(L"Escolha o que deseja realizar:\n");
-								wprintf(L" |1| - Realizar ordenacao\n");
-								wprintf(L" |2| - Voltar\n  ");
+								wprintf(L" |1| - Realizar ordenacao com números externos(dados do satélite)\n");
+								wprintf(L" |2| - Realizar ordenacao con números internos(dados pré definidos)\n");
+								wprintf(L" |3| - Voltar\n  ");
 								scanf_s("%d", &menuQuick);
 
 								switch (menuQuick)
 								{
 									case 1:
-										wprintf(L"LATE");
 										clock_t * timerQuick = StartTimer();
 										int n = sizeof(lat) / sizeof(lat[0]);
 										quickSort(lat, 0, n - 1);
@@ -87,12 +88,24 @@ int main()
 										wprintf(L"\nTempo total = %d segundos e %d milissegundos.\n\n", totalQuick / CLOCKS_PER_SEC, totalQuick % 1000);
 									break;
 									case 2:
+										clock_t * timerQuickPre = StartTimer();
+										
+										int s = sizeof(arr) / sizeof(arr[0]);
+										quickSort(lat, 0, s - 1);
+										printArray(lat, s);
+										quickSort(lon, 0, s - 1);
+										printArray(lon, s);
+										clock_t totalQuickPre = StopTimer(timerQuickPre);
+										
+										wprintf(L"\nTempo total = %d segundos e %d milissegundos.\n\n", totalQuick / CLOCKS_PER_SEC, totalQuick % 1000);
+									break;
+									case 3:
 										wprintf(L"Encerrando sistema de ordenacao...\n");
 										Stop(1000);
 									break;
 								}
 
-							} while (menuQuick != 2);
+							} while (menuQuick != 3);
 
 						break;
 
