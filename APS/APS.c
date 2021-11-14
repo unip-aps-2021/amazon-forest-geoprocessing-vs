@@ -4,6 +4,7 @@
 #include <locale.h>
 #include <stdlib.h>
 #include <stdio.h>
+#include <wchar.h>
 #pragma comment(lib, "libmariadb.lib")
 
 clock_t* StartTimer();
@@ -31,26 +32,27 @@ int main()
 {
 	int escolha = 0;
 	int subescolha = 0;
+	setlocale(LC_ALL, "");
 
 	do
 	{
 		system("cls");
-		printf("############## Sistema de controle do Geoprocessamento da Floresta Amazonica ##############\n\n");
-		printf("Este programa tem como objetivo utilizar as imagens geradas pelos satelites da floresta \nAmazonica ja catalogadas e ordena-las. Para isso sao utilizados tres metodos de ordenacao, \nonde cada um tem sua singularidade. Tambem e possivel comparar o desempenho dos tres \npara melhor analise.\n\n\n");
+		wprintf(L"############## Sistema de controle do Geoprocessamento da Floresta Amazonica ##############\n\n");
+		wprintf(L"Este programa tem como objetivo utilizar as imagens geradas pelos satelites da floresta \nAmazonica ja catalogadas e ordena-las. Para isso sao utilizados tres metodos de ordenacao, \nonde cada um tem sua singularidade. Tambem e possivel comparar o desempenho dos tres \npara melhor analise.\n\n\n");
 
-		printf("Selecione o tipo de programa a ser iniciado:\n | 1 | Iniciar Ordenacao dos dados \n | 2 | Comparar os tipos de ordenacao de dados \n | 3 | Sair\n   ");
+		wprintf(L"Selecione o tipo de programa a ser iniciado:\n | 1 | Iniciar Ordenacao dos dados \n | 2 | Comparar os tipos de ordenacao de dados \n | 3 | Sair\n   ");
 		scanf_s("%d", &escolha);
 		
 		switch (escolha)
 		{
 			case 1:
-				printf("Obtendo dados catalogados das imagens capturadas dos satelites...\n");
+				wprintf(L"Obtendo dados catalogados das imagens capturadas dos satelites...\n");
 				getSql();
 				Stop(3000);
 				do
 				{
 					system("cls");
-					printf("Escolha o tipo de ordenacao a ser usada:\n |1| Quick Sort\n |2| Heap Sort\n |3| Comb Sort\n\n |4| Voltar para o menu\n  ");
+					wprintf(L"Escolha o tipo de ordenacao a ser usada:\n |1| Quick Sort\n |2| Heap Sort\n |3| Comb Sort\n\n |4| Voltar para o menu\n  ");
 					scanf_s("%d", &subescolha);
 					
 					switch (subescolha)
@@ -63,33 +65,29 @@ int main()
 								
 							do
 							{
-								printf("\t#### QUICK SORT ####\n\n");
+								wprintf(L"\t#### QUICK SORT ####\n\n");
 
-								printf("Escolha o que deseja realizar:\n");
-								printf(" |1| - Realizar ordenacao\n");
-								printf(" |2| - Voltar\n  ");
+								wprintf(L"Escolha o que deseja realizar:\n");
+								wprintf(L" |1| - Realizar ordenacao\n");
+								wprintf(L" |2| - Voltar\n  ");
 								scanf_s("%d", &menuQuick);
 
 								switch (menuQuick)
 								{
 									case 1:
-										printf("LATE");
+										wprintf(L"LATE");
 										clock_t * timerQuick = StartTimer();
 										int n = sizeof(lat) / sizeof(lat[0]);
 										quickSort(lat, 0, n - 1);
-										// printArray(lat, n);
-										printf("\n\nNumero de verificacoes: %d\nNumero de trocas: %d", contadorVerificações, contadorTrocas);
-										contadorVerificações = 0;
-										contadorTrocas = 0;
+										printArray(lat, n);
 										quickSort(lon, 0, n - 1);
-										// printArray(lon, n);
-										printf("\n\nNumero de verificacoes: %d\nNumero de trocas: %d", contadorVerificações, contadorTrocas);
+										printArray(lon, n);
 										clock_t totalQuick = StopTimer(timerQuick);
 										
-										printf("\nTempo total = %d segundos e %d milissegundos.\n\n", totalQuick / CLOCKS_PER_SEC, totalQuick % 1000);
+										wprintf(L"\nTempo total = %d segundos e %d milissegundos.\n\n", totalQuick / CLOCKS_PER_SEC, totalQuick % 1000);
 									break;
 									case 2:
-										printf("Encerrando sistema de ordenacao...\n");
+										wprintf(L"Encerrando sistema de ordenacao...\n");
 										Stop(1000);
 									break;
 								}
@@ -110,19 +108,19 @@ int main()
 							int i;
 
 							system("cls");
-							printf("\t#### HEAP SORT - Ordenação baseada em Árvore ####\n\n", setlocale(LC_ALL, "Portuguese"));
+							wprintf(L"\t#### HEAP SORT - Ordenação baseada em Árvore ####\n\n", setlocale(LC_ALL, "Portuguese"));
 
 							do {
-								printf("\nEscolha como deseja realizar\n");
-								printf(" |1| Gerar valores aleatórios\n", setlocale(LC_ALL, "Portuguese")); // m�todo externo recebido do bd
-								printf(" |2| Pegar valores definidos\n"); // método interno
-								printf(" |3| Sair\n  ");
+								wprintf(L"\nEscolha como deseja realizar\n");
+								wprintf(L" |1| Gerar valores aleatórios\n", setlocale(LC_ALL, "Portuguese")); // m�todo externo recebido do bd
+								wprintf(L" |2| Pegar valores definidos\n"); // método interno
+								wprintf(L" |3| Sair\n  ");
 								scanf_s("%d", &menuHeap);
 
 								switch (menuHeap)
 								{
 									case 1:
-										printf("\nGerando valores aleaat�rios\n", setlocale(LC_ALL, "Portuguese"));
+										wprintf(L"\nGerando valores aleaat�rios\n", setlocale(LC_ALL, "Portuguese"));
 
 										srand(time(NULL));
 
@@ -138,7 +136,7 @@ int main()
 
 										clock_t totalHeap1 = StopTimer(timerHeap1);
 
-										printf("Tempo total = %d segundos e %d milissegundos.\n\n", totalHeap1 / CLOCKS_PER_SEC, totalHeap1 % 1000);
+										wprintf(L"Tempo total = %d segundos e %d milissegundos.\n\n", totalHeap1 / CLOCKS_PER_SEC, totalHeap1 % 1000);
 									break;
 									case 2:
 										clock_t * timerHeap2 = StartTimer();
@@ -146,21 +144,14 @@ int main()
 										// apresentando a ordena��o
 										ordenacao(lat, tamanhoLatHeap);
 										imprimiOrdenacao(lat, tamanhoLatHeap);
-										printf("LAT: \n");
-										printf("\n\nNumero de verificacoes: %d\nNumero de trocas: %d", contadorVerificações, contadorTrocas);
-										contadorTrocas = 0;
-										contadorVerificações = 0;
 										ordenacao(lon, tamanhoLatHeap);
 										imprimiOrdenacao(lon, tamanhoLatHeap);
-										printf("\n\nLON: ");
-										printf("\n\nNumero de verificacoes: %d\nNumero de trocas: %d", contadorVerificações, contadorTrocas);
-
 										clock_t totalHeap2 = StopTimer(timerHeap2);
 
-										printf("\nTempo total = %d segundos e %d milissegundos.\n", totalHeap2 / CLOCKS_PER_SEC, totalHeap2 % 1000);
+										wprintf(L"\nTempo total = %d segundos e %d milissegundos.\n", totalHeap2 / CLOCKS_PER_SEC, totalHeap2 % 1000);
 									break;
 									case 3:
-										printf("Encerrando sistema de ordenacao...\n");
+										wprintf(L"Encerrando sistema de ordenacao...\n");
 										Stop(1000);
 									break;
 								}
@@ -175,11 +166,11 @@ int main()
 
 							do
 							{
-								printf("\t#### COMB SORT ####\n\n");
+								wprintf(L"\t#### COMB SORT ####\n\n");
 
-								printf("Escolha o que deseja realizar:\n");
-								printf(" |1| - Realizar ordenacao\n");
-								printf(" |2| - Voltar\n  ");
+								wprintf(L"Escolha o que deseja realizar:\n");
+								wprintf(L" |1| - Realizar ordenacao\n");
+								wprintf(L" |2| - Voltar\n  ");
 								scanf_s("%d", &menuComb);
 
 								switch (menuComb)
@@ -192,31 +183,30 @@ int main()
 										int s, k;
 										s = 99713;
 
-										// printf("baguncadinho:\n");
+										// wprintf(L"baguncadinho:\n");
 										// for (k = 0;k < s;k++)
 										// {
-										// 	printf("%d ", lon[k]);
+										// 	wprintf(L"%d ", lon[k]);
 										// }
 										combSort(lat, s);
-										printf("\n\n\n\n\narrumadinho LAAAAAAAAAAAAAATITUDEEEEEEEEEEEEEEEEEEEEE:\n");        
+										wprintf(L"\n\n\n\n\narrumadinho LAAAAAAAAAAAAAATITUDEEEEEEEEEEEEEEEEEEEEE:\n");        
 										for (k = 0;k < s;k++)
 										{
-											printf("%d ", (lat[k]));
+											wprintf(L"%d ", (lat[k]));
 										}
 
 										combSort(lon, s);
-										printf("\n\n\n\n\n\narrumadinho LOOOOOOOOOONGITUDEEEEEEEEEEEEEEEEEEEEEE:\n");        
+										wprintf(L"\n\n\n\n\n\narrumadinho LOOOOOOOOOONGITUDEEEEEEEEEEEEEEEEEEEEEE:\n");        
 										for (k = 0;k < s;k++)
 										{
-											printf("%d ", (lon[k]));
+											wprintf(L"%d ", (lon[k]));
 										}
 
 										clock_t totalComb = StopTimer(timerComb);
 										
-										printf("\n\nTempo total = %d segundos e %d milissegundos.\n\n", totalComb / CLOCKS_PER_SEC, totalComb % 1000);
 									break;
 									case 2:
-										printf("Encerrando sistema de ordenacao...\n");
+										wprintf(L"Encerrando sistema de ordenacao...\n");
 										Stop(1000);
 									break;
 								} 
@@ -228,18 +218,88 @@ int main()
 							break;
 						break;
 						default:
-							printf("Opcao invalida...\n");
+							wprintf(L"Opcao invalida...\n");
 							Stop(1000);
 						break;
 					}
 				} while (subescolha != 4);
 			break;
 			case 2:
-				printf("Obtendo dados catalogados das imagens capturadas dos satelites...\n");
-				// GetData();
-				printf("O protocolo de comparacao dos algoritmos fara a ordenacao dos dados com 3 algoritmos de ordenacao e \nmostrara alguns dados de performance que podem ser utilizados como criterio para um uso mais objetivo.\n\n");
-				printf("Tem q ve isso aí ainda\n");
-				// Compare();
+				wprintf(L"O protocolo de comparacao dos algoritmos fara a ordenacao dos dados com 3 algoritmos de ordenacao e \nmostrara alguns dados de performance que podem ser utilizados como criterio para um uso mais objetivo.\n\n");
+				subescolha=0;
+				do
+				{
+					//timer, comparações e trocas.
+					getSql();
+					int n = sizeof(lat) / sizeof(lat[0]);
+					wprintf(L"TOMA\n");
+
+					wprintf(L" |1| - Valores Externos\n");
+					wprintf(L" |2| - Valores Internos\n");
+					wprintf(L" |3| - Voltar\n  ");
+
+					scanf("%d", &subescolha);
+					switch (subescolha)
+					{
+					case 1:
+						contadorTrocas=0;
+						contadorVerificações=0;
+						printf("QUICK: ");
+						quickSort(lat, 0, n - 1);
+						quickSort(lon, 0, n - 1);
+						wprintf(L"\n\nNúmero de verificacoes: %d\nNúmero de trocas: %d\n\n", contadorVerificações, contadorTrocas);
+						getSql();
+						contadorTrocas=0;
+						contadorVerificações=0;
+
+						printf("HEAP");
+						ordenacao(lat, n);
+						ordenacao(lon, n);
+						wprintf(L"\n\nNúmero de verificacoes: %d\nNúmero de trocas: %d\n\n", contadorVerificações, contadorTrocas);
+						getSql();
+						contadorTrocas=0;
+						contadorVerificações=0;
+						
+
+						printf("COMBI");
+						combSort(lat, n);
+						combSort(lon, n);
+						wprintf(L"\n\nNúmero de verificacoes: %d\nNúmero de trocas: %d\n\n", contadorVerificações, contadorTrocas);
+						break;
+					case 2:
+						//printf("prreguiçah");
+						contadorTrocas=0;
+						contadorVerificações=0;
+						int veto[] = { 84, 2, 42, 4, 5, 98, 7, -35 };
+						int s = sizeof(veto) / sizeof(veto[0]);
+
+						printf("QUICK: ");
+						quickSort(veto, 0, s - 1);
+						quickSort(veto, 0, s - 1);
+						wprintf(L"\n\nNúmero de verificacoes: %d\nNúmero de trocas: %d\n\n", contadorVerificações, contadorTrocas);
+						getSql();
+						contadorTrocas=0;
+						contadorVerificações=0;
+
+						printf("HEAP");
+						ordenacao(veto, s);
+						ordenacao(veto, s);
+						wprintf(L"\n\nNúmero de verificacoes: %d\nNúmero de trocas: %d\n\n", contadorVerificações, contadorTrocas);
+						getSql();
+						contadorTrocas=0;
+						contadorVerificações=0;
+						
+
+						printf("COMBI");
+						combSort(veto, s);
+						combSort(veto, s);
+						wprintf(L"\n\nNúmero de verificacoes: %d\nNúmero de trocas: %d\n\n", contadorVerificações, contadorTrocas);
+						
+						wprintf(L"AÉÉÉÉÉÉÉÉÉÉÉÉÉÉÉÉÉÉÉÉH\n");
+					default:
+						break;
+					}
+				} while (subescolha!=3);
 			break;
 			case 3:
 				exit(0);
@@ -392,7 +452,9 @@ int newN(int n) {
 }
 
 int combSort(int array[], int aSize) {
-	printf("\ntamo executano, perai....\n");
+	// printf("\ntamo executano, perai....\n");
+	contadorVerificações=0;
+	contadorTrocas=0;
 	int n = aSize;
 	int autemp;
 	int i;
@@ -403,22 +465,22 @@ int combSort(int array[], int aSize) {
 		int swapped = 0;
 		// n�mero de vezes que vai passar por tudo fazendo as troca la
 		for (i = 0; i < aSize - n; i++) {
-			verificacoesComb++;
+			contadorVerificações++;
 			int j = i + n;
 			if (array[i] > array[j]) {
 				autemp = array[i];
 				array[i] = array[j];
 				array[j] = autemp;
-				trocasComb++;
 				swapped = 1;
+				contadorTrocas++;
 			}
 		}
 		if (n == 1 && !swapped) {
 			break;
 		}
 	}
-	printf("\nta na mao patrao:\n");
-	printf("\nVerificacoes: %d\nNumero de Trocas: %d\n", verificacoesComb, trocasComb);
+	// printf("\nta na mao patrao:\n");
+	// printf("\nVerificacoes: %d\nNumero de Trocas: %d\n\n", verificacoesComb, trocasComb);
 }
 
 int partition(int array[], int baixo, int cima) {
