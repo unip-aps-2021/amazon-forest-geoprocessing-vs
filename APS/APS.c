@@ -61,6 +61,7 @@ int main()
 					{
 						
 /* QUICK SORT */		case 1:
+							getSql();
 							system("cls");
 							contadorVerificações = 0;
 							contadorTrocas = 0;
@@ -79,6 +80,7 @@ int main()
 								switch (menuQuick)
 								{
 									case 1:
+										getSql();
 										clock_t * timerQuick1 = StartTimer();
 										
 										int tamanhoLat = sizeof(lat) / sizeof(lat[0]);
@@ -139,6 +141,7 @@ int main()
 								switch (menuHeap)
 								{
 									case 1:
+										getSql();
 										int tamanhoLat = sizeof(lat) / sizeof(lat[0]);
 
 										clock_t * timerHeap1 = StartTimer();
@@ -201,6 +204,7 @@ int main()
 								switch (menuComb)
 								{
 									case 1:
+										getSql();
 										clock_t * timerComb1 = StartTimer();
 										
 										int tamanhoLat = sizeof(lat) / sizeof(lat[0]);
@@ -274,9 +278,15 @@ int main()
 
 						printf("QUICK: ");
 
+						clock_t* Qui = StartTimer();
+
 						quickSort(lat, 0, tamanhoLat);
 						quickSort(lon, 0, tamanhoLat);
+						
+						clock_t totalQui = StopTimer(Qui);
+
 						wprintf(L"\n\nNúmero de verificações: %d\nNúmero de trocas: %d\n\n", contadorVerificações, contadorTrocas);
+						wprintf(L"\nTempo total = %d segundos e %d milissegundos.\n\n", totalQui / CLOCKS_PER_SEC, totalQui % 1000);
 
 
 						getSql();
@@ -284,9 +294,14 @@ int main()
 						contadorVerificações = 0;
 
 						printf("HEAP: ");
+
+						clock_t* Heap = StartTimer();
 						ordenacao(lat, tamanhoLat);
 						ordenacao(lon, tamanhoLat);
+						clock_t totalHeap = StopTimer(Heap);
+
 						wprintf(L"\n\nNúmero de verificações: %d\nNúmero de trocas: %d\n\n", contadorVerificações, contadorTrocas);
+						wprintf(L"\nTempo total = %d segundos e %d milissegundos.\n\n", totalHeap / CLOCKS_PER_SEC, totalHeap % 1000);
 
 
 						getSql();
@@ -294,9 +309,14 @@ int main()
 						contadorVerificações = 0;
 
 						printf("COMB: ");
+
+						clock_t* Comb = StartTimer();
 						combSort(lat, tamanhoLat);
 						combSort(lon, tamanhoLat);
+						clock_t totalComb = StopTimer(Comb);
+
 						wprintf(L"\n\nNúmero de verificações: %d\nNúmero de trocas: %d\n\n", contadorVerificações, contadorTrocas);
+						wprintf(L"\nTempo total = %d segundos e %d milissegundos.\n\n", totalComb / CLOCKS_PER_SEC, totalComb % 1000);
 						break;
 					case 2:
 						int tamanhoLista = sizeof(listaInterna) / sizeof(listaInterna[0]);
