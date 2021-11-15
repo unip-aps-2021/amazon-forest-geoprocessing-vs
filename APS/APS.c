@@ -351,7 +351,7 @@ int main()
 						int tempComb[20] = {1, -57, 2, -64, 5, -74, 7, -10, 8, -39, 25, -500, -278, 1, 666, 909, 12, 45, 600, 1000};
 						clock_t* CombInterno = StartTimer();
 						printf("COMB SORT: ");
-						combSort(listaInterna, tamanhoLista);
+						combSort(tempComb, tamanhoLista);
 						clock_t totalCombInterno = StopTimer(CombInterno);
 						wprintf(L"\n\nNúmero de verificações: %d\nNúmero de trocas: %d\n\n", contadorVerificações, contadorTrocas);
 						wprintf(L"\nTempo total = %d segundos e %d milissegundos.\n\n", totalCombInterno / CLOCKS_PER_SEC, totalCombInterno % 1000);
