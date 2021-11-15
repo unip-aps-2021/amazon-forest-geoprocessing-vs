@@ -31,7 +31,7 @@ int main()
 	int subescolha = 0;
 	setlocale(LC_ALL, "");
 
-	int listaInterna[11] = {1, -57, 2, -64, 5, -74, 7, -10, 8, -39, 25};
+	int listaInterna[20] = {1, -57, 2, -64, 5, -74, 7, -10, 8, -39, 25, -500, -278, 1, 666, 909, 12, 45, 600, 1000};
 
 	do
 	{
@@ -320,31 +320,42 @@ int main()
 						break;
 					case 2:
 						int tamanhoLista = sizeof(listaInterna) / sizeof(listaInterna[0]);
-
-						getSql();
+						
 						contadorTrocas = 0;
 						contadorVerificações = 0;
 
-						printf("QUICK: ");
-						quickSort(listaInterna, 0, tamanhoLista - 1);
+						int tempQuick[20] = {1, -57, 2, -64, 5, -74, 7, -10, 8, -39, 25, -500, -278, 1, 666, 909, 12, 45, 600, 1000};
+						clock_t* QuiInterno = StartTimer();
+						printf("QUICK SORT: ");
+						quickSort(tempQuick, 0, tamanhoLista - 1);
+						clock_t totalQuiInterno = StopTimer(QuiInterno);
 						wprintf(L"\n\nNúmero de verificações: %d\nNúmero de trocas: %d\n\n", contadorVerificações, contadorTrocas);
+						wprintf(L"\nTempo total = %d segundos e %d milissegundos.\n\n", totalQuiInterno / CLOCKS_PER_SEC, totalQuiInterno % 1000);
 
-
-						getSql();
+						
 						contadorTrocas = 0;
 						contadorVerificações = 0;
-
-						printf("HEAP: ");
-						ordenacao(listaInterna, tamanhoLista);
+						
+						int tempHeap[20] = {1, -57, 2, -64, 5, -74, 7, -10, 8, -39, 25, -500, -278, 1, 666, 909, 12, 45, 600, 1000};
+						clock_t* HeapInterno = StartTimer();
+						printf("HEAP SORT: ");
+						ordenacao(tempHeap, tamanhoLista);
+						clock_t totalHeapInterno = StopTimer(HeapInterno);
 						wprintf(L"\n\nNúmero de verificações: %d\nNúmero de trocas: %d\n\n", contadorVerificações, contadorTrocas);
+						wprintf(L"\nTempo total = %d segundos e %d milissegundos.\n\n", totalHeapInterno / CLOCKS_PER_SEC, totalHeapInterno % 1000);
 
-						getSql();
+						
 						contadorTrocas=0;
 						contadorVerificações=0;
 
-						printf("COMB: ");
+						int tempComb[20] = {1, -57, 2, -64, 5, -74, 7, -10, 8, -39, 25, -500, -278, 1, 666, 909, 12, 45, 600, 1000};
+						clock_t* CombInterno = StartTimer();
+						printf("COMB SORT: ");
 						combSort(listaInterna, tamanhoLista);
+						clock_t totalCombInterno = StopTimer(CombInterno);
 						wprintf(L"\n\nNúmero de verificações: %d\nNúmero de trocas: %d\n\n", contadorVerificações, contadorTrocas);
+						wprintf(L"\nTempo total = %d segundos e %d milissegundos.\n\n", totalCombInterno / CLOCKS_PER_SEC, totalCombInterno % 1000);
+
 
 					default:
 						break;
