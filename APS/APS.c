@@ -13,17 +13,14 @@ void Stop();
 int lat[99713];
 int	lon[99713];
 int contadorTrocas;
-int contadorVerificações;//local
+int contadorVerificações;
 
 int getSql();
 int trocaElementos();
 int arvore();
 int ordenacao();
-int imprimiOrdenacao();
 int newN();
 int combSort();
-int FunQuickSort();
-int swap();
 int partition();
 int quickSort();
 int printArray();
@@ -33,6 +30,8 @@ int main()
 	int escolha = 0;
 	int subescolha = 0;
 	setlocale(LC_ALL, "");
+
+	int listaInterna[11] = {1, -57, 2, -64, 5, -74, 7, -10, 8, -39, 25};
 
 	do
 	{
@@ -52,16 +51,19 @@ int main()
 				do
 				{
 					system("cls");
-					int arr[11] = {1, -57, 2, -64, 5, -74, 7, -10, 8, -39, 25};
+					wprintf(L"########### Ordenação de Dados ###########\n\n");
+					wprintf(L"Pegaremos uma variedade de números e aplicaremos os algoritmos de ordenação neles. \nVale ressaltar que o usuário poderá escolher ordenar 2 tipos de conjunto de dados:\n   Interno: cujos números foram estabelecidos pelos programadores no código do programa.\n   Externos: Dados reais de latitude e longitude de queimadas que aconteceram na floresta amazônica e\n   foram registrados por satélites e distribuídos no site queimadas.dgi.inpe.br.\n\n");
+					
 					wprintf(L"Escolha o tipo de ordenacao a ser usada:\n |1| Quick Sort\n |2| Heap Sort\n |3| Comb Sort\n\n |4| Voltar para o menu\n  ");
 					scanf_s("%d", &subescolha);
 					
 					switch (subescolha)
 					{
-						// QUICK SORT
-						case 1:
+						
+/* QUICK SORT */		case 1:
 							system("cls");
 							contadorVerificações = 0;
+							contadorTrocas = 0;
 							int menuQuick = 0;
 								
 							do
@@ -69,38 +71,46 @@ int main()
 								wprintf(L"\t#### QUICK SORT ####\n\n");
 
 								wprintf(L"Escolha o que deseja realizar:\n");
-								wprintf(L" |1| - Realizar ordenacao com números externos(dados do satélite)\n");
-								wprintf(L" |2| - Realizar ordenacao con números internos(dados pré definidos)\n");
+								wprintf(L" |1| - Realizar ordenacao com números externos (Dados do satélite)\n");
+								wprintf(L" |2| - Realizar ordenacao con números internos (Dados predefinidos)\n");
 								wprintf(L" |3| - Voltar\n  ");
 								scanf_s("%d", &menuQuick);
 
 								switch (menuQuick)
 								{
 									case 1:
-										clock_t * timerQuick = StartTimer();
-										int n = sizeof(lat) / sizeof(lat[0]);
-										quickSort(lat, 0, n - 1);
-										printArray(lat, n);
-										quickSort(lon, 0, n - 1);
-										printArray(lon, n);
-										clock_t totalQuick = StopTimer(timerQuick);
+										clock_t * timerQuick1 = StartTimer();
 										
-										wprintf(L"\nTempo total = %d segundos e %d milissegundos.\n\n", totalQuick / CLOCKS_PER_SEC, totalQuick % 1000);
+										int tamanhoLat = sizeof(lat) / sizeof(lat[0]);
+										quickSort(lat, 0, tamanhoLat - 1);
+										quickSort(lon, 0, tamanhoLat - 1);
+
+										printf("\n\nDados ordenados de latitude:\n\n");
+										Stop(2000);
+										printArray(lat, tamanhoLat);
+										
+										printf("\n\nDados ordenados de longitude:\n\n");
+										Stop(2000);
+										printArray(lon, tamanhoLat);
+
+										clock_t totalQuick1 = StopTimer(timerQuick1) - 4000;
+										wprintf(L"\nTempo total = %d segundos e %d milissegundos.\n\n", totalQuick1 / CLOCKS_PER_SEC, totalQuick1 % 1000);
 									break;
 									case 2:
-										clock_t * timerQuickPre = StartTimer();
+										clock_t * timerQuick2 = StartTimer();
 										
-										int s = sizeof(arr) / sizeof(arr[0]);
-										quickSort(lat, 0, s - 1);
-										printArray(lat, s);
-										quickSort(lon, 0, s - 1);
-										printArray(lon, s);
-										clock_t totalQuickPre = StopTimer(timerQuickPre);
-										
-										wprintf(L"\nTempo total = %d segundos e %d milissegundos.\n\n", totalQuick / CLOCKS_PER_SEC, totalQuick % 1000);
+										int tamanhoLista = sizeof(listaInterna) / sizeof(listaInterna[0]);
+										quickSort(listaInterna, 0, tamanhoLista - 1);
+
+										printf("\n\nDados ordenados da lista:\n\n");
+										Stop(1000);
+										printArray(listaInterna, tamanhoLista);
+
+										clock_t totalQuick2 = StopTimer(timerQuick2) - 1000;
+										wprintf(L"\nTempo total = %d segundos e %d milissegundos.\n\n", totalQuick2 / CLOCKS_PER_SEC, totalQuick2 % 1000);
 									break;
 									case 3:
-										wprintf(L"Encerrando sistema de ordenacao...\n");
+										wprintf(L"Encerrando sistema de ordenação...\n");
 										Stop(1000);
 									break;
 								}
@@ -109,59 +119,58 @@ int main()
 
 						break;
 
-						// HEAP SORT
-						case 2:
+/* HEAP SORT */			case 2:
 							contadorVerificações = 0;
-							int vetor[] = { 1, 6, 7, 9, 55, 2, 10 }; // elementos n�o ordenados internos
-							int vet[5]; // elementos n�o ordenados externos
-							int elemento = sizeof(vetor) / sizeof(vetor[0]); // realizando as divis�es para an�lises da direita e da esquerda
-							int tamanhoLatHeap = sizeof(lat) / sizeof(lat[0]); // realizando as divis�es para an�lises da direita e da esquerda
+							contadorTrocas = 0;
 
 							int menuHeap = 0;
 							int i;
 
 							system("cls");
-							wprintf(L"\t#### HEAP SORT - Ordenação baseada em Árvore ####\n\n", setlocale(LC_ALL, "Portuguese"));
+							wprintf(L"\t#### HEAP SORT - Ordenação baseada em Árvore Binária ####\n\n");
 
 							do {
-								wprintf(L"\nEscolha como deseja realizar\n");
-								wprintf(L" |1| Gerar valores aleatórios\n", setlocale(LC_ALL, "Portuguese")); // m�todo externo recebido do bd
-								wprintf(L" |2| Pegar valores definidos\n"); // método interno
-								wprintf(L" |3| Sair\n  ");
+								wprintf(L"Escolha o que deseja realizar:\n");
+								wprintf(L" |1| - Realizar ordenacao com números externos (Dados do satélite)\n");
+								wprintf(L" |2| - Realizar ordenacao con números internos (Dados predefinidos)\n");
+								wprintf(L" |3| - Voltar\n  ");
 								scanf_s("%d", &menuHeap);
 
 								switch (menuHeap)
 								{
 									case 1:
-										wprintf(L"\nGerando valores aleaat�rios\n", setlocale(LC_ALL, "Portuguese"));
-
-										srand(time(NULL));
-
-										for (i = 0; i < 5; i++) {
-											vet[i] = rand();
-										}
+										int tamanhoLat = sizeof(lat) / sizeof(lat[0]);
 
 										clock_t * timerHeap1 = StartTimer();
 
-										// apresentando a ordena��o
-										ordenacao(vet, elemento);
-										imprimiOrdenacao(vet, elemento);
+										ordenacao(lat, tamanhoLat);
+										ordenacao(lon, tamanhoLat);
 
-										clock_t totalHeap1 = StopTimer(timerHeap1);
+										printf("\n\nDados ordenados de latitude:\n\n");
+										Stop(2000);
+										printArray(lat, tamanhoLat);
+										
+										printf("\n\nDados ordenados de longitude:\n\n");
+										Stop(2000);
+										printArray(lon, tamanhoLat);
+										
+										clock_t totalHeap1 = StopTimer(timerHeap1) - 4000;
 
-										wprintf(L"Tempo total = %d segundos e %d milissegundos.\n\n", totalHeap1 / CLOCKS_PER_SEC, totalHeap1 % 1000);
+										wprintf(L"\nTempo total = %d segundos e %d milissegundos.\n", totalHeap1 / CLOCKS_PER_SEC, totalHeap1 % 1000);
 									break;
 									case 2:
+										int tamanhoLista = sizeof(listaInterna) / sizeof(listaInterna[0]);
+
 										clock_t * timerHeap2 = StartTimer();
 
-										// apresentando a ordena��o
-										ordenacao(lat, tamanhoLatHeap);
-										imprimiOrdenacao(lat, tamanhoLatHeap);
-										ordenacao(lon, tamanhoLatHeap);
-										imprimiOrdenacao(lon, tamanhoLatHeap);
-										clock_t totalHeap2 = StopTimer(timerHeap2);
+										ordenacao(listaInterna, tamanhoLista);
 
-										wprintf(L"\nTempo total = %d segundos e %d milissegundos.\n", totalHeap2 / CLOCKS_PER_SEC, totalHeap2 % 1000);
+										printf("\n\nDados ordenados da lista:\n\n");
+										Stop(1000);
+										printArray(listaInterna, tamanhoLista);
+
+										clock_t totalHeap2 = StopTimer(timerHeap2) - 1000;
+										wprintf(L"Tempo total = %d segundos e %d milissegundos.\n\n", totalHeap2 / CLOCKS_PER_SEC, totalHeap2 % 1000);
 									break;
 									case 3:
 										wprintf(L"Encerrando sistema de ordenacao...\n");
@@ -172,8 +181,10 @@ int main()
 
 						break;
 
-						// COMB SORT
-						case 3:
+/* COMB SORT */			case 3:
+							contadorVerificações = 0;
+							contadorTrocas = 0;
+
 							system("cls");
 							int menuComb = 0;
 
@@ -182,54 +193,57 @@ int main()
 								wprintf(L"\t#### COMB SORT ####\n\n");
 
 								wprintf(L"Escolha o que deseja realizar:\n");
-								wprintf(L" |1| - Realizar ordenacao\n");
-								wprintf(L" |2| - Voltar\n  ");
+								wprintf(L" |1| - Realizar ordenacao com números externos (Dados do satélite)\n");
+								wprintf(L" |2| - Realizar ordenacao con números internos (Dados predefinidos)\n");
+								wprintf(L" |3| - Voltar\n  ");
 								scanf_s("%d", &menuComb);
 
 								switch (menuComb)
 								{
 									case 1:
-										clock_t * timerComb = StartTimer();
-
-										int veto[] = { 84, 2, 42, 4, 5, 98, 7, -35 };
-										int* v = veto;
-										int s, k;
-										s = 99713;
-
-										// wprintf(L"baguncadinho:\n");
-										// for (k = 0;k < s;k++)
-										// {
-										// 	wprintf(L"%d ", lon[k]);
-										// }
-										combSort(lat, s);
-										wprintf(L"\n\n\n\n\narrumadinho LAAAAAAAAAAAAAATITUDEEEEEEEEEEEEEEEEEEEEE:\n");        
-										for (k = 0;k < s;k++)
-										{
-											wprintf(L"%d ", (lat[k]));
-										}
-
-										combSort(lon, s);
-										wprintf(L"\n\n\n\n\n\narrumadinho LOOOOOOOOOONGITUDEEEEEEEEEEEEEEEEEEEEEE:\n");        
-										for (k = 0;k < s;k++)
-										{
-											wprintf(L"%d ", (lon[k]));
-										}
-
-										clock_t totalComb = StopTimer(timerComb);
+										clock_t * timerComb1 = StartTimer();
 										
+										int tamanhoLat = sizeof(lat) / sizeof(lat[0]);
+										combSort(lat, tamanhoLat);
+										combSort(lon, tamanhoLat);
+
+										printf("\n\nDados ordenados de latitude:\n\n");
+										Stop(2000);
+										printArray(lat, tamanhoLat);
+										
+										printf("\n\nDados ordenados de longitude:\n\n");
+										Stop(2000);
+										printArray(lon, tamanhoLat);
+
+										clock_t totalComb1 = StopTimer(timerComb1) - 4000;
+										wprintf(L"\nTempo total = %d segundos e %d milissegundos.\n\n", totalComb1 / CLOCKS_PER_SEC, totalComb1 % 1000);
 									break;
 									case 2:
+										clock_t * timerComb2 = StartTimer();
+										
+										int tamanhoLista = sizeof(listaInterna) / sizeof(listaInterna[0]);
+										combSort(listaInterna, tamanhoLista);
+
+										printf("\n\nDados ordenados da lista:\n\n");
+										Stop(1000);
+										printArray(listaInterna, tamanhoLista);
+
+										clock_t totalComb2 = StopTimer(timerComb2) - 1000;
+										wprintf(L"\nTempo total = %d segundos e %d milissegundos.\n\n", totalComb2 / CLOCKS_PER_SEC, totalComb2 % 1000);
+									break;
+									case 3:
 										wprintf(L"Encerrando sistema de ordenacao...\n");
 										Stop(1000);
 									break;
 								} 
-							} while (menuComb != 2);
-							
+							} while (menuComb != 3);
 						break;
+
 						case 4:
 							escolha = 0;
 							break;
 						break;
+
 						default:
 							wprintf(L"Opcao invalida...\n");
 							Stop(1000);
@@ -237,78 +251,81 @@ int main()
 					}
 				} while (subescolha != 4);
 			break;
+
 			case 2:
-				wprintf(L"O protocolo de comparacao dos algoritmos fara a ordenacao dos dados com 3 algoritmos de ordenacao e \nmostrara alguns dados de performance que podem ser utilizados como criterio para um uso mais objetivo.\n\n");
+				wprintf(L"O protocolo de comparação dos algoritmos fara a ordenação dos dados com 3 algoritmos de ordenação e \nmostrara alguns dados de performance que podem ser utilizados como critério para um uso mais objetivo.\n\n");
 				subescolha=0;
 				do
 				{
 					//timer, comparações e trocas.
-					getSql();
-					int n = sizeof(lat) / sizeof(lat[0]);
-					wprintf(L"TOMA\n");
+					int tamanhoLat = sizeof(lat) / sizeof(lat[0]);
 
 					wprintf(L" |1| - Valores Externos\n");
 					wprintf(L" |2| - Valores Internos\n");
 					wprintf(L" |3| - Voltar\n  ");
-
 					scanf("%d", &subescolha);
+
 					switch (subescolha)
 					{
 					case 1:
-						contadorTrocas=0;
-						contadorVerificações=0;
+						getSql();
+						contadorTrocas = 0;
+						contadorVerificações = 0;
+
 						printf("QUICK: ");
-						quickSort(lat, 0, n - 1);
-						quickSort(lon, 0, n - 1);
-						wprintf(L"\n\nNúmero de verificacoes: %d\nNúmero de trocas: %d\n\n", contadorVerificações, contadorTrocas);
-						getSql();
-						contadorTrocas=0;
-						contadorVerificações=0;
 
-						printf("HEAP");
-						ordenacao(lat, n);
-						ordenacao(lon, n);
-						wprintf(L"\n\nNúmero de verificacoes: %d\nNúmero de trocas: %d\n\n", contadorVerificações, contadorTrocas);
-						getSql();
-						contadorTrocas=0;
-						contadorVerificações=0;
-						
+						quickSort(lat, 0, tamanhoLat);
+						quickSort(lon, 0, tamanhoLat);
+						wprintf(L"\n\nNúmero de verificações: %d\nNúmero de trocas: %d\n\n", contadorVerificações, contadorTrocas);
 
-						printf("COMBI");
-						combSort(lat, n);
-						combSort(lon, n);
-						wprintf(L"\n\nNúmero de verificacoes: %d\nNúmero de trocas: %d\n\n", contadorVerificações, contadorTrocas);
+
+						getSql();
+						contadorTrocas = 0;
+						contadorVerificações = 0;
+
+						printf("HEAP: ");
+						ordenacao(lat, tamanhoLat);
+						ordenacao(lon, tamanhoLat);
+						wprintf(L"\n\nNúmero de verificações: %d\nNúmero de trocas: %d\n\n", contadorVerificações, contadorTrocas);
+
+
+						getSql();
+						contadorTrocas = 0;
+						contadorVerificações = 0;
+
+						printf("COMB: ");
+						combSort(lat, tamanhoLat);
+						combSort(lon, tamanhoLat);
+						wprintf(L"\n\nNúmero de verificações: %d\nNúmero de trocas: %d\n\n", contadorVerificações, contadorTrocas);
 						break;
 					case 2:
-						//printf("prreguiçah");
-						contadorTrocas=0;
-						contadorVerificações=0;
-						int veto[] = { 84, 2, 42, 4, 5, 98, 7, -35 };
-						int s = sizeof(veto) / sizeof(veto[0]);
+						int tamanhoLista = sizeof(listaInterna) / sizeof(listaInterna[0]);
+
+						getSql();
+						contadorTrocas = 0;
+						contadorVerificações = 0;
 
 						printf("QUICK: ");
-						quickSort(veto, 0, s - 1);
-						quickSort(veto, 0, s - 1);
-						wprintf(L"\n\nNúmero de verificacoes: %d\nNúmero de trocas: %d\n\n", contadorVerificações, contadorTrocas);
+						quickSort(listaInterna, 0, tamanhoLista - 1);
+						wprintf(L"\n\nNúmero de verificações: %d\nNúmero de trocas: %d\n\n", contadorVerificações, contadorTrocas);
+
+
+						getSql();
+						contadorTrocas = 0;
+						contadorVerificações = 0;
+
+						printf("HEAP: ");
+						ordenacao(listaInterna, tamanhoLista);
+						wprintf(L"\n\nNúmero de verificações: %d\nNúmero de trocas: %d\n\n", contadorVerificações, contadorTrocas);
+
 						getSql();
 						contadorTrocas=0;
 						contadorVerificações=0;
 
-						printf("HEAP");
-						ordenacao(veto, s);
-						ordenacao(veto, s);
-						wprintf(L"\n\nNúmero de verificacoes: %d\nNúmero de trocas: %d\n\n", contadorVerificações, contadorTrocas);
-						getSql();
-						contadorTrocas=0;
-						contadorVerificações=0;
-						
+						printf("COMB: ");
+						combSort(listaInterna, tamanhoLista);
+						wprintf(L"\n\nNúmero de verificações: %d\nNúmero de trocas: %d\n\n", contadorVerificações, contadorTrocas);
 
-						printf("COMBI");
-						combSort(veto, s);
-						combSort(veto, s);
-						wprintf(L"\n\nNúmero de verificacoes: %d\nNúmero de trocas: %d\n\n", contadorVerificações, contadorTrocas);
-						
-						wprintf(L"AÉÉÉÉÉÉÉÉÉÉÉÉÉÉÉÉÉÉÉÉH\n");
 					default:
 						break;
 					}
@@ -323,7 +340,7 @@ int main()
 	return 0;
 }
 
-// Usado para pausar a execu��o do programa por um determinado tempo em milissegundos (passado como par�metro)
+// Usado para pausar a execução do programa por um determinado tempo em milissegundos (passado como par�metro)
 void Stop(int duracao)
 {
 	int msec = 0;
@@ -336,7 +353,7 @@ void Stop(int duracao)
 	} while (msec < duracao);
 }
 
-// Usado para iniciar um temporizador. Retorna um n�mero do tipo clock_t* que deve ser armazenado para o uso da fun��o StopTimer().
+// Usado para iniciar um temporizador. Retorna um número do tipo clock_t* que deve ser armazenado para o uso da função StopTimer().
 clock_t* StartTimer()
 {
 	clock_t* tempo = malloc(sizeof(clock_t));
@@ -344,7 +361,7 @@ clock_t* StartTimer()
 	return tempo;
 }
 
-// Usado para finalizar a contagem de um temporizador. Retorna um n�mero do tipo clock_t que pode ser usado para calcular o tempo passado em segundos e milissegundos.
+// Usado para finalizar a contagem de um temporizador. Retorna um número do tipo clock_t que pode ser usado para calcular o tempo passado em segundos e milissegundos.
 clock_t StopTimer(clock_t* timer)
 {
 	clock_t total = clock() - *timer;
@@ -356,7 +373,7 @@ clock_t StopTimer(clock_t* timer)
 
 int getSql()
 {
-	//  Iniciando vari�veis de conex�o, resultado e linha
+	//  Iniciando variáveis de conexão, resultado e linha
 	MYSQL* conn;
 	MYSQL_RES* res;
 	MYSQL_ROW row;
@@ -364,50 +381,46 @@ int getSql()
 	MYSQL_FIELD* fields;
 	int i = 0;
 	int index = 0;
+
 	//  Preenchendo dados do banco
 	char* server = "20.121.202.26";
 	char* user = "usuarioc";
 	char* password = "145902";
 	char* database = "dados";
-	//  Inicia conex�o com banco
+
+	//  Inicia conexão com banco
 	conn = mysql_init(NULL);
 	mysql_real_connect(conn, server, user, password, database, 3306, NULL, 0);
+
 	//  Executa Query
 	mysql_query(conn, "SELECT lat AS latitude, lon AS longitude FROM dados_geo;");
+
 	//  Usa e printa resultado
 	res = mysql_use_result(conn);
 	num_fields = mysql_num_fields(res);
 	fields = mysql_fetch_fields(res);
 	for (i = 0; i < num_fields; i++)
 	{
-		//printf("Field %u is %s\n", i, fields[i].name);
 		while ((row = mysql_fetch_row(res))) {
 
 			lat[index] = atoi(row[i]);
 			lon[index] = atoi(row[i + 1]);
-			//printf("%d\n", lat[i]);
-			//printf("%d\n", lon[i+1]);
-			//printf("%s: %s\n",fields[i].name, row[i]);
-			//printf("%s: %s\n",fields[i + 1].name, row[i + 1]);
+
 			index++;
 		}
 	}
-	//  Fecha conex�o e limpa o resultado
-	//mysql_free_result(conn);
-	//mysql_close(conn);
+
 }
 
-//come�o codigo jacque
-/* Realiza a troca dos elementos */
+// Realiza a troca dos números passados como parâmetros
 int trocaElementos(int* a, int* b) {
-	// troca os elementos
 	int aux = *a;
 	*a = *b;
 	*b = aux;
 	contadorTrocas++;
 }
 
-/* Cria��o da �rvore e dividindo os lado direito e esquerdo*/
+// Criação da árvore e dividindo os lado direito e esquerdo
 int arvore(int vetor[], int elemento, int i) {
 	int maiorElemento = i;
 	int direita = 2 * i + 1;  // a direita sempre se realiza a soma 2 * i + 1
@@ -427,31 +440,20 @@ int arvore(int vetor[], int elemento, int i) {
 	}
 }
 
-/* Constru��o do HeapSort */
+// Construção do HeapSort
 int ordenacao(int vetor[], int elemento) {
-	// cria a ordena��o
+	// Cria a ordenação
 	int contador;
-	for (contador = (elemento / 2) - 1; contador >= 0; contador--) { // realiza o decremento para ordenar de tr�s para frente
+	for (contador = (elemento / 2) - 1; contador >= 0; contador--) { // Realiza o decremento para ordenar de três para frente
 		arvore(vetor, elemento, contador);
 	}
 
-	// faz a ordena��o para adicionar nos �ndices do vetor
+	// Faz a ordenação para adicionar nos índices do vetor
 	for (contador = elemento - 1; contador >= 0; contador--) {
 		trocaElementos(&vetor[0], &vetor[contador]);
 		arvore(vetor, contador, 0);
 	}
 }
-
-int imprimiOrdenacao(int vetor[], int elemento) {
-	int cont;
-
-	for (cont = 0; cont < elemento; ++cont) {
-		printf("%d ", vetor[cont]);
-	}
-
-	printf("\n");
-}
-//fim codigo jacque
 
 int newN(int n) {
 	n = (n * 10) / 13;
@@ -465,35 +467,35 @@ int newN(int n) {
 }
 
 int combSort(int array[], int aSize) {
-	// printf("\ntamo executano, perai....\n");
 	contadorVerificações=0;
 	contadorTrocas=0;
+
 	int n = aSize;
 	int autemp;
 	int i;
 	int verificacoesComb = 0;
 	int trocasComb = 0;
+
 	for (;;) {
 		n = newN(n);
 		int swapped = 0;
-		// n�mero de vezes que vai passar por tudo fazendo as troca la
-		for (i = 0; i < aSize - n; i++) {
+
+		// número de vezes que vai passar por tudo fazendo as troca la
+		for (i = 0; i < aSize - n; i++)
+		{
 			contadorVerificações++;
+
 			int j = i + n;
+
 			if (array[i] > array[j]) {
-				autemp = array[i];
-				array[i] = array[j];
-				array[j] = autemp;
+				trocaElementos(&array[i], &array[j]);
 				swapped = 1;
-				contadorTrocas++;
 			}
 		}
 		if (n == 1 && !swapped) {
 			break;
 		}
 	}
-	// printf("\nta na mao patrao:\n");
-	// printf("\nVerificacoes: %d\nNumero de Trocas: %d\n\n", verificacoesComb, trocasComb);
 }
 
 int partition(int array[], int baixo, int cima) {

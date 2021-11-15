@@ -1,0 +1,6 @@
+{
+    "files.associations": {
+        "*.idl": "c",
+        "random": "c"
+    }
+}
